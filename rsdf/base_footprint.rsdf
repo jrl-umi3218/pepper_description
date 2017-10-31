@@ -1,0 +1,12 @@
+<robot name="pepper">
+  <planar_surface name="MobileBase" link="base_footprint">
+    <origin xyz="0 0 -0.093" rpy="0 0 0" />
+    <points>
+      <point xy="0.127 -0.058" />
+      <point xy="0.127 0.038" />
+      <point xy="-0.097 0.038" />
+      <point xy="-0.097 -0.058" />
+    </points>
+    <material name="plastic" />
+  </planar_surface>
+</robot>
