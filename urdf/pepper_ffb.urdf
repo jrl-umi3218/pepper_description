@@ -158,7 +158,7 @@
     </collision>
   </link>
   <joint name="base_footprint_joint" type="fixed">
-    <parent link="Tibia"/>
+    <parent link="WheelFR_link"/>
     <child link="base_footprint"/>
     <origin rpy="0 0 0" xyz="0 0 -0.334"/>
   </joint>
