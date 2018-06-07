@@ -160,7 +160,7 @@
   <joint name="base_footprint_joint" type="fixed">
     <parent link="base_footprint"/>
     <child link="WheelFR_link"/>
-    <origin rpy="0 0 0" xyz="0 0 0.334"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
   </joint>
   <link name="base_footprint"/>
   <joint name="base_link_fixedjoint" type="fixed">
@@ -1402,13 +1402,13 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </inertial>
   </link>
-  <joint name="Trans_Y" type="prismatic">
+  <joint name="Rot_Z" type="continuous">
     <parent link="WheelFL_link"/>
     <child link="Tibia"/>
     <!--<origin rpy="0 0 1.07517" xyz="0.09 0.155 -0.264"/>-->
     <origin rpy="0 0 0" xyz="0.0 0. 0."/>
-    <axis xyz="0 1.0 0"/>
-    <limit effort="3.25" lower="-10" upper="10" velocity="6.28319"/>
+    <axis xyz="0.0 0 1"/>
+    <limit effort="3.25" lower="0" upper="0" velocity="6.28319"/>
   </joint>
   <link name="WheelB_link">
     <inertial>
@@ -1432,13 +1432,13 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </inertial>
   </link>
-  <joint name="Rot_Z" type="continuous">
+  <joint name="Trans_Y" type="prismatic">
     <parent link="WheelFR_link"/>
     <child link="WheelB_link"/>
     <!--<origin rpy="0 0 -1.07517" xyz="0.09 -0.155 -0.264"/>-->
     <origin rpy="0 0 0" xyz="0 0 0"/>
-    <axis xyz="0.0 0 1"/>
-    <limit effort="3.25" lower="0" upper="0" velocity="6.28319"/>
+    <axis xyz="0 1.0 0"/>
+    <limit effort="3.25" lower="-10" upper="10" velocity="6.28319"/>
   </joint>
   <!-- MACROS FOR DISABLE LINKS -->
   <!-- MACROS FOR MIMIC JOINTS -->
