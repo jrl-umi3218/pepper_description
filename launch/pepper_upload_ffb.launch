@@ -1,4 +1,0 @@
-<launch>
-  <arg name="version" default="1.0" />
-  <param name="robot_description" textfile="$(find pepper_description)/urdf/pepper_ffb.urdf" />
-</launch>
