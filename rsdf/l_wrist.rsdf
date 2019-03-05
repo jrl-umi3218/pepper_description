@@ -1,5 +1,5 @@
 <robot name="pepper">
-  <planar_surface name="RightHand" link="r_wrist">
+  <planar_surface name="LeftHand" link="l_wrist">
     <origin xyz="0.05 0 0" rpy="0 -0.7 0" />
     <points>
       <point xy="0.03 0.03" />
@@ -9,7 +9,7 @@
     </points>
     <material name="plastic" />
   </planar_surface>
-  <planar_surface name="RightForearm" link="r_wrist">
+  <planar_surface name="LeftForearm" link="l_wrist">
     <origin xyz="0 0 -0.025" rpy="0 0 0" />
     <points>
       <point xy="0.03 0.03" />
