@@ -13,8 +13,8 @@
     <origin xyz="0 0 -0.025" rpy="0 0 0" />
     <points>
       <point xy="0.03 0.03" />
-      <point xy="-0.02 0.03" />
-      <point xy="-0.02 -0.03" />
+      <point xy="-0.07 0.03" />
+      <point xy="-0.07 -0.03" />
       <point xy="0.03 -0.03" />
     </points>
     <material name="plastic" />

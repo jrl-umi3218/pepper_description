@@ -3,8 +3,8 @@
     <origin xyz="0 0 0" rpy="0 0 0" />
     <points>
       <point xy="0.0838 -0.155" />
-      <point xy="0.0838 0.155" />
       <point xy="-0.1762 0" />
+      <point xy="0.0838 0.155" />
     </points>
     <material name="plastic" />
   </planar_surface>
