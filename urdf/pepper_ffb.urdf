@@ -83,7 +83,7 @@
     <parent link="Pelvis"/>
     <child link="Hip"/>
     <origin rpy="0 0 0" xyz="0 0 0.268"/>
-    <axis xyz="0 1.0 0"/>
+    <axis xyz="0 -1.0 0"/>
     <limit effort="19.787" lower="-1.03847" upper="1.03847" velocity="2.93276"/>
   </joint>
   <link name="Pelvis">
@@ -109,7 +109,7 @@
     <parent link="Tibia"/>
     <child link="Pelvis"/>
     <origin rpy="0 0 0" xyz="0 0 0"/>
-    <axis xyz="0 1.0 0"/>
+    <axis xyz="0 -1.0 0"/>
     <limit effort="27.702" lower="-0.514872" upper="0.514872" velocity="2.93276"/>
   </joint>
   <link name="Tibia">
@@ -124,62 +124,14 @@
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
-    <visual>
-      <geometry>
-        <mesh filename="package://pepper_description/meshes/WheelFL.dae" scale="0.1 0.1 0.1"/>
-      </geometry>
-      <!--<origin rpy="0 0 0" xyz="0 0 0"/>-->
-      <origin rpy="0 0 1.07517" xyz="0.09 0.155 -0.264"/>
-    </visual>
-    <visual>
-      <geometry>
-        <mesh filename="package://pepper_description/meshes/WheelB.dae" scale="0.1 0.1 0.1"/>
-      </geometry>
-      <origin rpy="0 0 -3.14159" xyz="-0.17 0 -0.264"/>
-    </visual>
-    <visual>
-      <geometry>
-        <mesh filename="package://pepper_description/meshes/WheelFR.dae" scale="0.1 0.1 0.1"/>
-      </geometry>
-      <origin rpy="0 0 -1.07517" xyz="0.09 -0.155 -0.264"/>
-    </visual>
     <collision>
       <geometry>
         <mesh filename="package://pepper_description/meshes/KneePitch_0.10.stl" scale="0.1 0.1 0.1"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
-    <collision>
-      <geometry>
-        <mesh filename="package://pepper_description/meshes/WheelFL_0.10.stl" scale="0.1 0.1 0.1"/>
-      </geometry>
-      <origin rpy="0 0 1.07517" xyz="0.09 0.155 -0.264"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="package://pepper_description/meshes/WheelB_0.10.stl" scale="0.1 0.1 0.1"/>
-      </geometry>
-      <origin rpy="0 0 -3.14159" xyz="-0.17 0 -0.264"/>
-    </collision>
-    <collision>
-      <geometry>
-        <mesh filename="package://pepper_description/meshes/WheelFR_0.10.stl" scale="0.1 0.1 0.1"/>
-      </geometry>
-      <origin rpy="0 0 -1.07517" xyz="0.09 -0.155 -0.264"/>
-    </collision>
   </link>
-  <joint name="base_footprint_joint" type="fixed">
-    <parent link="base_footprint"/>
-    <child link="WheelFR_link"/>
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-  </joint>
-  <link name="base_footprint"/>
-  <joint name="base_link_fixedjoint" type="fixed">
-    <parent link="base_link"/>
-    <child link="base_footprint"/>
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-    <axis xyz="0 0 0"/>
-  </joint>
+
   <link name="torso">
     <inertial>
       <mass value="3.99533"/>
@@ -485,227 +437,7 @@
       <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
     </inertial>
   </link>
-  <!--<link name="SonarBack_frame"/>
-  <joint name="Sonar/Back_sensor_fixedjoint" type="fixed">
-    <parent link="Tibia"/>
-    <child link="SonarBack_frame"/>
-    <origin rpy="-1.81761e-08 -0.209438 -3.14159" xyz="-0.0718 0 -0.0534"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="CameraBottom_optical_frame"/>
-  <joint name="CameraBottom_optical_frame_fixedjoint" type="fixed">
-    <parent link="CameraBottom_frame"/>
-    <child link="CameraBottom_optical_frame"/>
-    <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
-  </joint>
-  <link name="CameraDepth_optical_frame"/>
-  <joint name="CameraDepth_optical_frame_fixedjoint" type="fixed">
-    <parent link="CameraDepth_frame"/>
-    <child link="CameraDepth_optical_frame"/>
-    <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
-  </joint>
-  <link name="LHandTouchBack_frame"/>
-  <joint name="LHand/Touch/Back_sensor_fixedjoint" type="fixed">
-    <parent link="l_wrist"/>
-    <child link="LHandTouchBack_frame"/>
-    <origin rpy="1.5708 -1.5708 -3.14159" xyz="0.0523 0 0.0304"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="VerticalLeftLaser_frame"/>
-  <joint name="LaserSensor/VerticalLeft_sensor_fixedjoint" type="fixed">
-    <parent link="Tibia"/>
-    <child link="VerticalLeftLaser_frame"/>
-    <origin rpy="0 0.349066 0" xyz="0.0562 0 -0.0692"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="SurroundingFrontLaser_device_frame"/>
-  <joint name="LaserSensor/Front_sensor_fixedjoint" type="fixed">
-    <parent link="Tibia"/>
-    <child link="SurroundingFrontLaser_device_frame"/>
-    <origin rpy="0 0.349066 0" xyz="0.0562 0 -0.0692"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="BumperB_frame"/>
-  <joint name="Bumper/Back_sensor_fixedjoint" type="fixed">
-    <parent link="Tibia"/>
-    <child link="BumperB_frame"/>
-    <origin rpy="0 0 -3.14159" xyz="-0.251 0 -0.264"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="SurroundingLeftLaser_frame"/>
-  <joint name="LaserSensor/Left_projected_sensor_fixedjoint" type="fixed">
-    <parent link="Tibia"/>
-    <child link="SurroundingLeftLaser_frame"/>
-    <origin rpy="0 0 1.75728" xyz="-0.018 0.0899 -0.334"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="ShovelLaser_frame"/>
-  <joint name="LaserSensor/Shovel_sensor_fixedjoint" type="fixed">
-    <parent link="Tibia"/>
-    <child link="ShovelLaser_frame"/>
-    <origin rpy="0 0.349066 0" xyz="0.0562 0 -0.0692"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="ImuTorsoAccelerometer_frame"/>
-  <joint name="Accelerometer_sensor_fixedjoint" type="fixed">
-    <parent link="torso"/>
-    <child link="ImuTorsoAccelerometer_frame"/>
-    <origin rpy="0 0 0" xyz="0.00239 -0.03575 0.00626"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="RSpeaker_frame"/>
-  <joint name="SpeakerRight_sensor_fixedjoint" type="fixed">
-    <parent link="Head"/>
-    <child link="RSpeaker_frame"/>
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="SurroundingRightLaser_device_frame"/>
-  <joint name="LaserSensor/Right_sensor_fixedjoint" type="fixed">
-    <parent link="Tibia"/>
-    <child link="SurroundingRightLaser_device_frame"/>
-    <origin rpy="0 0.349066 -1.5708" xyz="-0.018 -0.0899 -0.0759"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="LSpeaker_frame"/>
-  <joint name="SpeakerLeft_sensor_fixedjoint" type="fixed">
-    <parent link="Head"/>
-    <child link="LSpeaker_frame"/>
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="RHandTouchBack_frame"/>
-  <joint name="RHand/Touch/Back_sensor_fixedjoint" type="fixed">
-    <parent link="r_wrist"/>
-    <child link="RHandTouchBack_frame"/>
-    <origin rpy="1.5708 -1.5708 -3.14159" xyz="0.0523 0 0.0304"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="CameraTop_frame"/>
-  <joint name="CameraTop_sensor_fixedjoint" type="fixed">
-    <parent link="Head"/>
-    <child link="CameraTop_frame"/>
-    <origin rpy="0 0 0" xyz="0.08601 0 0.16284"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="SurroundingLeftLaser_device_frame"/>
-  <joint name="LaserSensor/Left_sensor_fixedjoint" type="fixed">
-    <parent link="Tibia"/>
-    <child link="SurroundingLeftLaser_device_frame"/>
-    <origin rpy="0 0.349066 1.5708" xyz="-0.018 0.0899 -0.0759"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="CameraDepth_frame"/>
-  <joint name="CameraDepth_sensor_fixedjoint" type="fixed">
-    <parent link="Head"/>
-    <child link="CameraDepth_frame"/>
-    <origin rpy="0 0 0" xyz="0.05138 0.039 0.1194"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="SurroundingRightLaser_frame"/>
-  <joint name="LaserSensor/Right_projected_sensor_fixedjoint" type="fixed">
-    <parent link="Tibia"/>
-    <child link="SurroundingRightLaser_frame"/>
-    <origin rpy="0 0 -1.75728" xyz="-0.018 -0.0899 -0.334"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="HeadTouchFront_frame"/>
-  <joint name="Head/Touch/Front_sensor_fixedjoint" type="fixed">
-    <parent link="Head"/>
-    <child link="HeadTouchFront_frame"/>
-    <origin rpy="0 0.20944 0" xyz="0.028175 0 0.21267"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="VerticalRightLaser_frame"/>
-  <joint name="LaserSensor/VerticalRight_sensor_fixedjoint" type="fixed">
-    <parent link="Tibia"/>
-    <child link="VerticalRightLaser_frame"/>
-    <origin rpy="0 0.349066 0" xyz="0.0562 0 -0.0692"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="SonarFront_frame"/>
-  <joint name="Sonar/Front_sensor_fixedjoint" type="fixed">
-    <parent link="Tibia"/>
-    <child link="SonarFront_frame"/>
-    <origin rpy="0 -0.322858 0" xyz="0.0699 0 -0.1023"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="BumperFL_frame"/>
-  <joint name="Bumper/FrontLeft_sensor_fixedjoint" type="fixed">
-    <parent link="Tibia"/>
-    <child link="BumperFL_frame"/>
-    <origin rpy="0 0 0.48886" xyz="0.129 0.227 -0.264"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="CameraBottom_frame"/>
-  <joint name="CameraBottom_sensor_fixedjoint" type="fixed">
-    <parent link="Head"/>
-    <child link="CameraBottom_frame"/>
-    <origin rpy="0 0.698132 0" xyz="0.09262 0 0.06177"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="CameraTop_optical_frame"/>
-  <joint name="CameraTop_optical_frame_fixedjoint" type="fixed">
-    <parent link="CameraTop_frame"/>
-    <child link="CameraTop_optical_frame"/>
-    <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
-  </joint>
-  <link name="ImuBaseAccelerometer_frame"/>
-  <joint name="AccelerometerBase_sensor_fixedjoint" type="fixed">
-    <parent link="Tibia"/>
-    <child link="ImuBaseAccelerometer_frame"/>
-    <origin rpy="0 0 0" xyz="0.0147 -0.0017 -0.26319"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="ImuTorsoGyrometer_frame"/>
-  <joint name="Gyrometer_sensor_fixedjoint" type="fixed">
-    <parent link="torso"/>
-    <child link="ImuTorsoGyrometer_frame"/>
-    <origin rpy="0 0 0" xyz="0.00204 -0.03491 -0.00959"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="Tablet_frame"/>
-  <joint name="Tablet_sensor_fixedjoint" type="fixed">
-    <parent link="torso"/>
-    <child link="Tablet_frame"/>
-    <origin rpy="0 -0.523599 0" xyz="0.0839249 0 0.06251"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="HeadTouchRear_frame"/>
-  <joint name="Head/Touch/Rear_sensor_fixedjoint" type="fixed">
-    <parent link="Head"/>
-    <child link="HeadTouchRear_frame"/>
-    <origin rpy="0 -0.314159 0" xyz="-0.03376 0 0.21052"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="BumperFR_frame"/>
-  <joint name="Bumper/FrontRight_sensor_fixedjoint" type="fixed">
-    <parent link="Tibia"/>
-    <child link="BumperFR_frame"/>
-    <origin rpy="0 0 -0.48886" xyz="0.129 -0.227 -0.264"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="SurroundingFrontLaser_frame"/>
-  <joint name="LaserSensor/Front_projected_sensor_fixedjoint" type="fixed">
-    <parent link="Tibia"/>
-    <child link="SurroundingFrontLaser_frame"/>
-    <origin rpy="0 0 0" xyz="0.0562 0 -0.334"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="ChestButton_frame"/>
-  <joint name="ChestBoard/Button_sensor_fixedjoint" type="fixed">
-    <parent link="torso"/>
-    <child link="ChestButton_frame"/>
-    <origin rpy="0 0 0" xyz="0.049871 0.001588 0.055163"/>
-    <axis xyz="0 0 0"/>
-  </joint>
-  <link name="HeadTouchMiddle_frame"/>
-  <joint name="Head/Touch/Middle_sensor_fixedjoint" type="fixed">
-    <parent link="Head"/>
-    <child link="HeadTouchMiddle_frame"/>
-    <origin rpy="0 -0.0349066 0" xyz="0.0041 0 0.2159"/>
-    <axis xyz="0 0 0"/>
-  </joint>-->
+
   <link name="RFinger41_link">
     <inertial>
       <mass value="2e-06"/>
@@ -1406,20 +1138,56 @@
     <axis xyz="0 0 1.0"/>
     <mimic joint="LHand" multiplier="0.872665" offset="0"/>
   </joint>
+
+  <link name="rotz_link"/>
+  <joint name="Rot_Z" type="continuous">
+    <parent link="rotz_link"/>
+    <child link="Tibia"/>
+    <origin rpy="0 0 0" xyz="0.0 0. 0.334"/>
+    <axis xyz="0.0 0 1"/>
+    <limit effort="5.0" lower="0" upper="0" velocity="0.5"/>
+  </joint>
+
+  <link name="transx_link"/>
+  <joint name="Trans_X" type="prismatic">
+    <parent link="transx_link"/>
+    <child link="rotz_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <axis xyz="1.0 0 0"/>
+    <limit effort="8.4" lower="-10" upper="10" velocity="0.35"/>
+  </joint>
+
+  <joint name="Trans_Y" type="prismatic">
+    <parent link="base_link"/>
+    <child link="transx_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <axis xyz="0 1.0 0"/>
+    <limit effort="8.4" lower="-10" upper="10" velocity="0.35"/>
+  </joint>
+
   <link name="WheelFL_link">
     <inertial>
       <mass value="1.58028"/>
       <inertia ixx="0.00299756" ixy="6.3068e-07" ixz="5.56903e-06" iyy="0.00303229" iyz="-9.0408e-07" izz="0.00296585"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="package://pepper_description/meshes/WheelFL.dae" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://pepper_description/meshes/WheelFL_0.10.stl" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </collision>
   </link>
-  <joint name="Rot_Z" type="continuous">
-    <parent link="WheelFL_link"/>
-    <child link="Tibia"/>
-    <!--<origin rpy="0 0 1.07517" xyz="0.09 0.155 -0.264"/>-->
-    <origin rpy="0 0 0" xyz="0.0 0. 0."/>
-    <axis xyz="0.0 0 1"/>
-    <limit effort="3.25" lower="0" upper="0" velocity="6.28319"/>
+  <joint name="WheelFL" type="fixed">
+    <parent link="Tibia"/>
+    <child link="WheelFL_link"/>
+    <origin rpy="0 0 1.07517" xyz="0.09 0.155 -0.264"/>
   </joint>
   <link name="WheelB_link">
     <inertial>
@@ -1427,14 +1195,23 @@
       <inertia ixx="0.00299756" ixy="6.3068e-07" ixz="5.56903e-06" iyy="0.00303229" iyz="-9.0408e-07" izz="0.00296585"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="package://pepper_description/meshes/WheelB.dae" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://pepper_description/meshes/WheelB_0.10.stl" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </collision>
   </link>
-  <joint name="Trans_X" type="prismatic">
-    <parent link="WheelB_link"/>
-    <child link="WheelFL_link"/>
-    <!--<origin rpy="0 0 -3.14159" xyz="-0.17 0 -0.264"/>-->
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-    <axis xyz="1.0 0 0"/>
-    <limit effort="3.25" lower="-10" upper="10" velocity="6.28319"/>
+  <joint name="WheelB" type="fixed">
+    <parent link="Tibia"/>
+    <child link="WheelB_link"/>
+    <origin rpy="0 0 -3.14159" xyz="-0.17 0 -0.264"/>
   </joint>
   <link name="WheelFR_link">
     <inertial>
@@ -1442,13 +1219,52 @@
       <inertia ixx="0.00299756" ixy="6.3068e-07" ixz="5.56903e-06" iyy="0.00303229" iyz="-9.0408e-07" izz="0.00296585"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="package://pepper_description/meshes/WheelFR.dae" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://pepper_description/meshes/WheelFR_0.10.stl" scale="0.1 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </collision>
   </link>
-  <joint name="Trans_Y" type="prismatic">
-    <parent link="WheelFR_link"/>
-    <child link="WheelB_link"/>
-    <!--<origin rpy="0 0 -1.07517" xyz="0.09 -0.155 -0.264"/>-->
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-    <axis xyz="0 1.0 0"/>
-    <limit effort="3.25" lower="-10" upper="10" velocity="6.28319"/>
+  <joint name="WheelFR" type="fixed">
+    <parent link="Tibia"/>
+    <child link="WheelFR_link"/>
+    <origin rpy="0 0 -1.07517" xyz="0.09 -0.155 -0.264"/>
   </joint>
+
+  <link name="base_footprint"/>
+  <joint name="leg_joint" type="fixed">
+    <parent link="Tibia"/>
+    <child link="base_footprint"/>
+    <origin rpy="0 0 0" xyz="0. 0. -0.334"/>
+  </joint>
+
+  <link name="base_wheels_center"/>
+  <joint name="wheels_center_offset_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_wheels_center"/>
+    <origin rpy="0 0 0" xyz="0.0062 0. 0."/>
+  </joint>
+
+  <link name="CameraTop_frame"/>
+  <joint name="CameraTop_sensor_fixedjoint" type="fixed">
+    <parent link="Head"/>
+    <child link="CameraTop_frame"/>
+    <origin rpy="0 0 0" xyz="0.08601 0 0.16284"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+  <link name="CameraTop_optical_frame"/>
+  <joint name="CameraTop_optical_frame_fixedjoint" type="fixed">
+    <parent link="CameraTop_frame"/>
+    <child link="CameraTop_optical_frame"/>
+    <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
+  </joint>
+
 </robot>
