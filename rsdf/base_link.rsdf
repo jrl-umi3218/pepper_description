@@ -2,9 +2,9 @@
   <planar_surface name="MobileBase" link="base_link">
     <origin xyz="0 0 0" rpy="0 0 0" />
     <points>
-      <point xy="0.0838 -0.155" />
-      <point xy="-0.1762 0" />
-      <point xy="0.0838 0.155" />
+      <point xy="0.09 -0.155" />
+      <point xy="-0.17 0" />
+      <point xy="0.09 0.155" />
     </points>
     <material name="plastic" />
   </planar_surface>

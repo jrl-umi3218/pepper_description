@@ -32,7 +32,7 @@
     <child link="Head"/>
     <origin rpy="0 0 0" xyz="0 0 0"/>
     <axis xyz="0 1.0 0"/>
-    <limit effort="2.666" lower="-0.706858" upper="0.637045" velocity="9.22756"/>
+    <limit effort="2.666" lower="-0.706858" upper="0.57" velocity="9.22756"/>
   </joint>
   <link name="Head">
     <inertial>
@@ -57,7 +57,7 @@
     <parent link="Hip"/>
     <child link="torso"/>
     <origin rpy="0 0 0" xyz="0 0 0.079"/>
-    <axis xyz="1.0 0 0"/>
+    <axis xyz="-1.0 0 0"/>
     <limit effort="10.1884" lower="-0.514872" upper="0.514872" velocity="2.27032"/>
   </joint>
   <link name="Hip">
@@ -1212,6 +1212,12 @@
     <origin rpy="0 0 -1.07517" xyz="0.09 -0.155 -0.264"/>
   </joint>
 
+  <joint name="fixed_base" type="fixed">
+    <parent link="base_link"/>
+    <child link="Tibia"/>
+    <origin rpy="0 0 0" xyz="0 0 0.334"/>
+  </joint>
+
   <link name="CameraTop_frame"/>
   <joint name="CameraTop_sensor_fixedjoint" type="fixed">
     <parent link="Head"/>
@@ -1227,10 +1233,52 @@
     <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
   </joint>
 
-  <joint name="fixed_base" type="fixed">
-    <parent link="base_link"/>
-    <child link="Tibia"/>
-    <origin rpy="0 0 0" xyz="0 0 0.334"/>
+  <!-- Where the RealSense is attached wrt CameraTop_frame -->
+  <link name="RealSense_screw_frame" >
+  <!-- TODO add camera inertial parameters: mass 0.072kg, inertial matrix -->
+  <visual>
+      <origin xyz="0.0149 0.0 0.0125" rpy="1.570796 0 1.570796"/>
+      <geometry>
+        <mesh filename="package://pepper_description/meshes/d435.dae"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+  </visual>
+  </link>
+  <joint name="RealSense_fixedjoint" type="fixed">
+    <parent link="CameraTop_frame"/>
+    <child link="RealSense_screw_frame"/>
+    <origin rpy="0 0 0" xyz="0.0 0.0 0.017"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+  <!-- Where the color and depth optical frames are positioned wrt RealSense attach screw frame 
+       based on https://github.com/IntelRealSense/realsense-ros/blob/development/realsense2_description/urdf/_d435.urdf.xacro -->
+  <link name="RealSence_color_frame"/>
+  <joint name="RealSense_color_fixedjoint" type="fixed">
+      <origin xyz="0 0.0325 0.0125" rpy="0 0 0" />
+      <parent link="RealSense_screw_frame" />
+      <child link="RealSence_color_frame" />
+  </joint>
+
+  <link name="RealSence_color_optical_frame"/>
+  <joint name="RealSense_color_optical_frame_fixedjoint" type="fixed">
+      <origin xyz="0 0 0" rpy="-1.570796 0 -1.570796" />
+      <parent link="RealSence_color_frame" />
+      <child link="RealSence_color_optical_frame" />
+  </joint>
+      
+  <link name="RealSence_depth_frame"/>
+  <joint name="RealSense_depth_fixedjoint" type="fixed">
+      <origin xyz="0 0.0175 0.0125" rpy="0 0 0" />
+      <parent link="RealSense_screw_frame" />
+      <child link="RealSence_depth_frame" />
+  </joint>
+
+  <link name="RealSence_depth_optical_frame"/>
+  <joint name="RealSense_depth_optical_frame_fixedjoint" type="fixed">
+      <origin xyz="0 0 0" rpy="-1.570796 0 -1.570796" />
+      <parent link="RealSence_depth_frame" />
+      <child link="RealSence_depth_optical_frame" />
   </joint>
 
 </robot>
