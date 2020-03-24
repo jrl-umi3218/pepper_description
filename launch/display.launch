@@ -6,6 +6,7 @@
 
 	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" ></node>
 	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+	<node pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="0 0 0 0 0 0 1 CameraTop_optical_frame camera_rgb_optical_frame 100" />
 	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find pepper_description)/launch/display.rviz"/>
 </launch>
 

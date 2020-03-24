@@ -32,7 +32,7 @@
     <child link="Head"/>
     <origin rpy="0 0 0" xyz="0 0 0"/>
     <axis xyz="0 1.0 0"/>
-    <limit effort="2.666" lower="-0.706858" upper="0.57" velocity="9.22756"/>
+    <limit effort="2.666" lower="-0.706858" upper="0.43" velocity="9.22756"/>
   </joint>
   <link name="Head">
     <inertial>
@@ -286,7 +286,7 @@
     <child link="l_gripper"/>
     <origin rpy="0 0 0" xyz="0.025 0 0"/>
     <axis xyz="1.0 0 0"/>
-    <limit effort="0.144" lower="0.02" upper="0.98" velocity="12.56"/>
+    <limit effort="0.144" lower="0" upper="1" velocity="12.56"/>
   </joint>
   <link name="l_gripper">
     <inertial>
@@ -429,7 +429,7 @@
     <child link="r_gripper"/>
     <origin rpy="0 0 0" xyz="0.025 0 0"/>
     <axis xyz="1.0 0 0"/>
-    <limit effort="0.144" lower="0.02" upper="0.98" velocity="12.56"/>
+    <limit effort="0.144" lower="0" upper="1" velocity="12.56"/>
   </joint>
   <link name="r_gripper">
     <inertial>
@@ -1251,8 +1251,6 @@
     <axis xyz="0 0 0"/>
   </joint>
 
-  <!-- Where the color and depth optical frames are positioned wrt RealSense attach screw frame 
-       based on https://github.com/IntelRealSense/realsense-ros/blob/development/realsense2_description/urdf/_d435.urdf.xacro -->
   <link name="RealSence_color_frame"/>
   <joint name="RealSense_color_fixedjoint" type="fixed">
       <origin xyz="0 0.0325 0.0125" rpy="0 0 0" />
@@ -1266,7 +1264,7 @@
       <parent link="RealSence_color_frame" />
       <child link="RealSence_color_optical_frame" />
   </joint>
-      
+
   <link name="RealSence_depth_frame"/>
   <joint name="RealSense_depth_fixedjoint" type="fixed">
       <origin xyz="0 0.0175 0.0125" rpy="0 0 0" />
@@ -1279,6 +1277,108 @@
       <origin xyz="0 0 0" rpy="-1.570796 0 -1.570796" />
       <parent link="RealSence_depth_frame" />
       <child link="RealSence_depth_optical_frame" />
+  </joint>
+
+  <!-- Additional camera -->
+  <material name="black">
+    <color rgba="0. 0. 0. 1" />
+  </material>
+  <material name="dark_grey">
+    <color rgba="0.1 0.1 0.1 1" />
+  </material>
+  <material name="grey">
+    <color rgba="0.6 0.6 0.6 1" />
+  </material>
+  <material name="white">
+    <color rgba="0.9 0.9 0.9 1" />
+  </material>
+
+  <link name="camera_body">
+    <visual>
+      <origin xyz="0. 0. 0." />
+      <geometry>
+        <mesh filename="package://pepper_description/meshes/camera_body.stl"/>
+      </geometry>
+      <material name="white" />
+    </visual>
+  </link>
+
+  <link name="camera_base">
+    <visual>
+      <origin xyz="-0.013 0. 0." />
+      <geometry>
+        <mesh filename="package://pepper_description/meshes/camera_base.stl"/>
+      </geometry>
+      <material name="grey" />
+    </visual>
+  </link>
+
+  <link name="camera_visor">
+    <visual>
+      <origin xyz="-0.0128 0. 0." />
+      <geometry>
+        <mesh filename="package://pepper_description/meshes/camera_visor.stl"/>
+      </geometry>
+      <material name="black" />
+    </visual>
+  </link>
+
+  <joint name="camera_base_to_body" type="fixed">
+    <parent link="camera_base" />
+    <child link="camera_body" />
+    <origin xyz="-0.0757 0. 0.008" rpy="0. 0. 0." />
+  </joint>
+
+  <joint name="camera_base_to_visor" type="fixed">
+    <parent link="camera_base" />
+    <child link="camera_visor" />
+    <origin xyz="0. 0. 0." rpy="0. 0. 0." />
+  </joint>
+
+  <!-- Connection to realsense -->
+  <joint name="camera_realsense_to_azure" type="fixed">
+    <parent link="RealSense_screw_frame" />
+    <child link="camera_base" />
+    <origin xyz="0.015 0.0005 0.045" rpy="0. 0. 0." />
+  </joint>
+
+  <!-- Kinect depth optical frame -->
+  <link name="kinect_depth_optical_frame"/>
+  <joint name="kinect_depth_fixedjoint" type="fixed">
+      <origin xyz="0. 0. 0.0018" rpy="-1.675 0 -1.57" />
+      <parent link="camera_base" />
+      <child link="kinect_depth_optical_frame" />
+  </joint>
+
+  <!-- Kinect IMU sensor frame -->
+  <link name="kinect_imu_frame"/>
+  <joint name="kinect_imu_fixedjoint" type="fixed">
+      <origin xyz="-0.051074 -0.0033404 0.0027" rpy="3.14 0. 3.14" />
+      <parent link="camera_base" />
+      <child link="kinect_imu_frame" />
+  </joint>
+
+  <!-- Connection of T265 to D435 -->
+  <link name="t265">
+    <visual>
+      <origin xyz="0. 0. 0.01225" />
+      <geometry>
+        <mesh filename="package://pepper_description/meshes/t265.stl"/>
+      </geometry>
+      <material name="grey" />
+    </visual>
+  </link>
+  <joint name="d435_to_t265" type="fixed">
+    <parent link="RealSense_screw_frame" />
+    <child link="t265" />
+    <origin xyz="0. 0. 0.064" rpy="0. 0. 0." />
+  </joint>
+
+  <link name="t265_pose"/>
+  <joint name="t265_pose_frame_joint" type="fixed">
+      <origin xyz="0.00625 0.0 0.01225" rpy="0.0 0.0 0.0" />
+      <parent link="t265" />
+      <child link="t265_pose" />
   </joint>
 
 </robot>
