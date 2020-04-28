@@ -1381,4 +1381,12 @@
       <child link="t265_pose" />
   </joint>
 
+  <link name="tablet"/>
+  <joint name="tablet_fixedjoint" type="fixed">
+    <parent link="torso"/>
+    <child link="tablet"/>
+    <origin rpy="0 -0.523599 0" xyz="0.0839249 0 0.2"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
 </robot>
