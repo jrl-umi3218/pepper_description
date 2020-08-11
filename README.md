@@ -1,3 +1,10 @@
-Initial repository used >> [pepper_description](https://github.com/ros-naoqi/pepper_robot/tree/master/pepper_description)
+# Pepper robot description for [`mc_rtc`](https://jrl-umi3218.github.io/mc_rtc/)
 
-This repository contains Pepper robot description ROS package customized for mc_rtc 
+This repository contains Pepper robot description ROS package customized for [`mc_pepper`](https://gite.lirmm.fr/multi-contact/mc_pepper) robot module used by [`mc_rtc`](https://jrl-umi3218.github.io/mc_rtc/) control framework.
+
+The description package includes
+* Robot kinematics and dynamics parameters defined in robot [URDF file](urdf/pepper.urdf)
+* Anti-self-collision [convex shapes](convex)
+* Contact surfaces (and normals) defined in [RSDF files](rsdf)
+
+![pepper_description](doc/pepper_description.png "pepper_description")
