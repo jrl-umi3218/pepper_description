@@ -1237,9 +1237,8 @@
   <link name="RealSense_screw_frame" >
   <!-- TODO add camera inertial parameters: mass 0.072kg, inertial matrix -->
   <visual>
-      <origin xyz="0.0149 0.0 0.0125" rpy="1.570796 0 1.570796"/>
       <geometry>
-        <mesh filename="package://pepper_description/meshes/d435.dae"/>
+        <mesh filename="package://pepper_description/meshes/d435.stl"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
   </visual>
@@ -1305,7 +1304,7 @@
 
   <link name="camera_base">
     <visual>
-      <origin xyz="-0.013 0. 0." />
+      <origin xyz="0. 0. 0." />
       <geometry>
         <mesh filename="package://pepper_description/meshes/camera_base.stl"/>
       </geometry>
@@ -1315,7 +1314,7 @@
 
   <link name="camera_visor">
     <visual>
-      <origin xyz="-0.0128 0. 0." />
+      <origin xyz="0. 0. 0." />
       <geometry>
         <mesh filename="package://pepper_description/meshes/camera_visor.stl"/>
       </geometry>
