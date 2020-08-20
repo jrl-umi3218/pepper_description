@@ -1238,7 +1238,7 @@
   <!-- TODO add camera inertial parameters: mass 0.072kg, inertial matrix -->
   <visual>
       <geometry>
-        <mesh filename="package://pepper_description/meshes/d435.stl"/>
+        <mesh filename="package://pepper_description/meshes/d435.dae"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
   </visual>
