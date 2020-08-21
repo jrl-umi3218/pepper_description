@@ -4,7 +4,7 @@ This repository contains Pepper robot description ROS package customized for [`m
 
 The description package includes
 * Robot kinematics and dynamics parameters defined in robot [URDF file](urdf/pepper.urdf)
-* Anti-self-collision [convex shapes](convex)
+* Anti-collision [convex shapes](convex)
 * Contact surfaces (and normals) defined in [RSDF files](rsdf)
 
 ![pepper_description](doc/pepper_description.png "pepper_description")
