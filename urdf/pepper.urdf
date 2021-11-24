@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<robot name="JulietteY20MP" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="pepper">
   <link name="base_link"/>
   <joint name="HeadYaw" type="revolute">
     <parent link="torso"/>
