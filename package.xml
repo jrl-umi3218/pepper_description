@@ -11,12 +11,10 @@
 
   <!-- Dependencies needed to compile this package. -->
   <build_depend>xacro</build_depend>
-  <build_depend>mc_rbdyn_urdf</build_depend>
 
   <run_depend>robot_state_publisher</run_depend>
   <run_depend>urdf</run_depend>
   <run_depend>xacro</run_depend>
-  <run_depend>mc_rbdyn_urdf</run_depend>
 
   <buildtool_depend>catkin</buildtool_depend>
 
