@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
-<package>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
   <name>pepper_description</name>
   <version>0.1.10</version>
   <description>The pepper_description package customized for mc_rtc</description>
 
   <author>Anastasia Bolotnikova</author>
   <maintainer email="bolotnikov@lirmm.fr">Anastasia Bolotnikova</maintainer>
+  <maintainer email="arn.tanguy@gmail.com">Arnaud TANGUY</maintainer>
 
   <license>Apache 2.0</license>
 
-  <!-- Dependencies needed to compile this package. -->
-  <build_depend>xacro</build_depend>
+  <buildtool_depend condition="$ROS_VERSION == 1">catkin</buildtool_depend>
+  <buildtool_depend condition="$ROS_VERSION == 2">ament_cmake</buildtool_depend>
 
-  <run_depend>robot_state_publisher</run_depend>
-  <run_depend>urdf</run_depend>
-  <run_depend>xacro</run_depend>
-
-  <buildtool_depend>catkin</buildtool_depend>
-
+   <export>
+    <build_type condition="$ROS_VERSION == 1">catkin</build_type>
+    <build_type condition="$ROS_VERSION == 2">ament_cmake</build_type>
+  </export>
 </package>

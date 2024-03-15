@@ -1,47 +1,62 @@
-cmake_minimum_required(VERSION 2.8.3)
-project(pepper_description)
+cmake_minimum_required(VERSION 3.10)
+cmake_policy(SET CMP0048 NEW)
+project(pepper_description VERSION 1.0.0)
 
-option(DISABLE_ROS OFF)
-if(DISABLE_ROS)
-  message(STATUS "Building without ROS support as DISABLE_ROS=ON")
+if(NOT DISABLE_ROS)
+  if(NOT DEFINED ENV{ROS_VERSION})
+    message(FATAL_ERROR "ROS_VERSION is not set in the environment")
+  endif()
+  if($ENV{ROS_VERSION} EQUAL 1)
+    set(ROS_VERSION 1)
+    find_package(catkin REQUIRED)
+  elseif($ENV{ROS_VERSION} EQUAL 2)
+    set(ROS_VERSION 2)
+    find_package(ament_cmake REQUIRED)
+  else()
+    message(FATAL_ERROR "Unknown ROS version: $ENV{ROS_VERSION}")
+  endif()
+else()
+  set(ROS_VERSION 0)
 endif()
 
-find_package(catkin QUIET)
+if(${ROS_VERSION} EQUAL 1)
+  catkin_package()
+elseif(${ROS_VERSION} EQUAL 2)
+  set(CATKIN_PACKAGE_SHARE_DESTINATION share/${PROJECT_NAME})
+else()
+  set(CATKIN_PACKAGE_SHARE_DESTINATION share/mc_rtc/${PROJECT_NAME})
 
-if(NOT DISABLE_ROS AND ${catkin_FOUND}) # build with catkin
-  catkin_package(SKIP_PKG_CONFIG_GENERATION)
-
-  # Configure the develspace pkg-config file
-  set(DATADIR "${PROJECT_SOURCE_DIR}")
-  configure_file(
-    "${PROJECT_SOURCE_DIR}/pkgconfig.pc.cmake"
-    "${CATKIN_DEVEL_PREFIX}/lib/pkgconfig/${PROJECT_NAME}.pc")
-else() # catkin-free build
   include(CMakePackageConfigHelpers)
-  set(VERSION_CONFIG "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake")
+  set(VERSION_CONFIG
+      "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake")
   set(PROJECT_CONFIG "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake")
   set(CONFIG_INSTALL_DIR "lib/cmake/${PROJECT_NAME}")
-  write_basic_package_version_file(
-    ${VERSION_CONFIG}
-    VERSION 1.0.0
-    COMPATIBILITY SameMajorVersion
-  )
-  configure_package_config_file(cmake/Config.cmake.in "${PROJECT_CONFIG}" INSTALL_DESTINATION "${CONFIG_INSTALL_DIR}")
-  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake" "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake" DESTINATION "${CONFIG_INSTALL_DIR}")
-  set(CATKIN_PACKAGE_SHARE_DESTINATION share/${PROJECT_NAME})
+
+  configure_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake/ConfigVersion.cmake.in"
+                 "${VERSION_CONFIG}" @ONLY)
+  configure_package_config_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/Config.cmake.in" "${PROJECT_CONFIG}"
+    INSTALL_DESTINATION "${CONFIG_INSTALL_DIR}")
+
+  install(FILES "${VERSION_CONFIG}" "${PROJECT_CONFIG}"
+          DESTINATION "${CONFIG_INSTALL_DIR}")
+  install(FILES package.xml DESTINATION "${CATKIN_PACKAGE_SHARE_DESTINATION}")
 endif()
 
-# Configure the installspace pkg-config file
-set(DATADIR "${CMAKE_INSTALL_PREFIX}/${CATKIN_PACKAGE_SHARE_DESTINATION}")
-file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/catkin_generated/installspace)
-configure_file(
-  "${PROJECT_SOURCE_DIR}/pkgconfig.pc.cmake"
-  "${CMAKE_CURRENT_BINARY_DIR}/catkin_generated/installspace/${PROJECT_NAME}.pc")
-install(
-  FILES ${CMAKE_CURRENT_BINARY_DIR}/catkin_generated/installspace/${PROJECT_NAME}.pc
-  DESTINATION lib/pkgconfig)
-
 foreach(dir convex launch meshes rsdf urdf)
-   install(DIRECTORY ${dir}/
-      DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/${dir})
+  if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${dir})
+    install(DIRECTORY ${dir}/
+            DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/${dir})
+  endif()
 endforeach(dir)
+
+if(${ROS_VERSION} EQUAL 2)
+  configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/robot_INSTALL_PREFIX.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/cmake/pepper_description_INSTALL_PREFIX.cmake"
+    @ONLY)
+  ament_package(
+    CONFIG_EXTRAS
+    "${CMAKE_CURRENT_BINARY_DIR}/cmake/pepper_description_INSTALL_PREFIX.cmake"
+  )
+endif()
